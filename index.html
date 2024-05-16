@@ -4,77 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bypass and Get Key Fluxus</title>
-    <style>
-        body {
-            background-image: url('3s.png');
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        input {
-            padding: 10px;
-            width: 300px;
-            margin: 10px 0;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            background-color: green;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: darkgreen;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Bypass and Get Key Fluxus</h1>
-        <input type="text" id="input-url" placeholder="Enter URL" />
-        <button id="submit-button">Submit</button>
-        <div id="result"></div>
-    </div>
+    <h1>Key:</h1>
+    <input type="text" id="keyInput" readonly>
+    <button id="copyButton">Copy Key</button>
 
     <script>
-        document.getElementById('submit-button').addEventListener('click', function() {
-            const url = document.getElementById('input-url').value;
-            const encodedUrl = encodeURIComponent(url);
-            const redirectUrl = `https://3sut2z.github.io/bypass-and-get-key-fluxus/?url=${encodedUrl}`;
-            window.location.href = redirectUrl;
+        // Lấy key từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const key = urlParams.get('key');
+
+        // Hiển thị key
+        document.getElementById('keyInput').value = key;
+
+        // Sao chép key vào clipboard
+        document.getElementById('copyButton').addEventListener('click', () => {
+            const keyInput = document.getElementById('keyInput');
+            keyInput.select();
+            document.execCommand('copy');
+            alert('Key copied to clipboard!');
         });
-
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const key = params.get('key');
-            if (key) {
-                const resultDiv = document.getElementById('result');
-                const keyElement = document.createElement('p');
-                keyElement.textContent = `Key: ${key}`;
-                resultDiv.appendChild(keyElement);
-
-                const copyButton = document.createElement('button');
-                copyButton.textContent = 'Copy to Clipboard';
-                copyButton.addEventListener('click', function() {
-                    navigator.clipboard.writeText(key).then(() => {
-                        alert('Key copied to clipboard!');
-                    });
-                });
-                resultDiv.appendChild(copyButton);
-            }
-        }
     </script>
 </body>
 </html>
