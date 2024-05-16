@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bypass and Get Key Fluxus</title>
-    <link rel="icon" type="image/png" href="3s.png"> <!-- Thêm icon -->
+    <link rel="icon" type="image/png" href="3s.png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-image: url('3s.png'); /* Đường dẫn đến hình nền */
+            background-image: url('3s.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-color: #f0f0f0;
@@ -81,38 +81,12 @@
     </div>
 
     <script>
-        function fetchKey(url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    const keyRegex = /([a-zA-Z0-9]{32})/;
-                    const keyMatch = data.match(keyRegex);
-                    if (keyMatch) {
-                        const key = keyMatch[0];
-                        const keyBox = document.getElementById('keyBox');
-                        keyBox.textContent = 'Key: ' + key;
-                        keyBox.style.display = 'block';
-
-                        keyBox.addEventListener('click', () => {
-                            navigator.clipboard.writeText(key).then(() => {
-                                alert('Key copied to clipboard!');
-                            });
-                        });
-                    } else {
-                        document.getElementById('result').textContent = 'Key not found';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('result').textContent = 'Error fetching the key';
-                });
-        }
-
         document.getElementById('submitBtn').addEventListener('click', () => {
             const urlInput = document.getElementById('urlInput').value;
             if (urlInput) {
                 const encodedUrl = encodeURIComponent(urlInput);
-                window.location.href = `https://3sut2z.github.io/bypass-and-get-key-fluxus/?url=${encodedUrl}`;
+                const tampermonkeyUrl = `chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#nav=35de1aa6-2d4e-4e27-8b5e-6cbdeb1006a6+editor&url=${encodedUrl}`;
+                window.location.href = tampermonkeyUrl;
             } else {
                 alert('Please enter a URL');
             }
@@ -124,7 +98,6 @@
         if (url) {
             const decodedUrl = decodeURIComponent(url);
             document.getElementById('urlInput').value = decodedUrl;
-            fetchKey(decodedUrl);
         }
     </script>
 </body>
