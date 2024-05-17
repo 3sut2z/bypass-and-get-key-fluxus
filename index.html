@@ -39,12 +39,24 @@
         button:hover {
             background-color: #45a049;
         }
+        img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
+    <img src="3s.png" alt="Icon">
     <h1>Your Key:</h1>
     <input type="text" id="keyInput" readonly>
     <button id="copyButton">Copy Key</button>
+
+    <form id="linkForm">
+        <label for="fluxusLink">Enter Fluxus Link:</label>
+        <input type="text" id="fluxusLink" name="fluxusLink" required>
+        <button type="submit">Submit</button>
+    </form>
 
     <script>
         // Lấy key từ URL
@@ -60,6 +72,23 @@
             keyInput.select();
             document.execCommand('copy');
             alert('Key copied to clipboard!');
+        });
+
+        // Gửi yêu cầu khi nhập link vào form
+        document.getElementById('linkForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const fluxusLink = document.getElementById('fluxusLink').value;
+            const url = `http://132.145.68.135:6056/?url=${fluxusLink}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('keyInput').value = data.key;
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         });
     </script>
 </body>
